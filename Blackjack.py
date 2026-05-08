@@ -7,12 +7,12 @@ from sys import exit
 deck = []
 
 class user:
-    #Creates a name, amount and an empty hand for each user
-    def __init__(self, name, amount, firstRound=True):
+    #Creates a name, amount, empty hand, and result of last round for each user
+    def __init__(self, name, amount):
         self.name = name
         self.amount = amount
         self.hand = []
-        self.firstRound = firstRound
+        self.lastRound = None
 
     # Prints the hand of either the dealer or user depending on which is called
     # Set dealersFirst to True if you want to print the first card of the dealers hand
@@ -52,7 +52,7 @@ def printInfoScreen(dealer, player):
 
     # If it's the users first time playing, it will continue to ask them to start the game until they type play
     # This insures the player is ready, as it will go straight into the first game after this
-    if player.firstRound == True:
+    if player.lastRound == None:
         clearScreen()
         print(f'You have ${player.amount} in your account')
         setScreen()
@@ -126,7 +126,9 @@ def blackjack(dealer, player):
     shuffleDeck()
     dealCards(dealer, player)
 
-
+    # The next two lines will be removed later when we can actually decide who won and lost
+    dealer.lastRound = 'lose'
+    player.lastRound = 'win'
     printInfoScreen(dealer, player)
 
 def main():
@@ -146,8 +148,6 @@ def main():
     printInfoScreen(dealer, player)
 
     # Starts the game
-    player.firstRound = False
-    dealer.firstRound = False
     blackjack(dealer, player)
 
 # Name guard
