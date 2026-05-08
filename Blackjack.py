@@ -31,7 +31,7 @@ def getMoney():
     Returning the value once it's acceptable
     '''
     amount = 0
-
+    
     while True:
         tryAmount = input('How much money would you like to add to your account? ')
         try:
@@ -58,13 +58,14 @@ def printInfoScreen(dealer, player):
         setScreen()
 
         while True:
-            play = input('Type "play" when you\'re ready to start the game: ')
+            play = input('Type "play" when you\'re ready to start the game: ').lower().replace(' ', '')
             if play == 'play':
                 break
             else:
                 clearScreen()
                 print(f'You have ${player.amount} in your account')
                 setScreen()
+
     # If the user has already played a round, it will ask if they want to play again or stop
     # If they want to play again, it will start another round
     # If they want to stop playing, it will ask them to confirm and then exit the game with a nice message if they confirmed the exit
@@ -74,12 +75,12 @@ def printInfoScreen(dealer, player):
         setScreen()
         
         while True:
-            again = input(f'Would you like to play again? (type "yes" or "no"): ')
+            again = input(f'Would you like to play again? (type "yes" or "no"): ').lower().replace(' ', '')
             if again == 'yes':
                 blackjack(dealer, player)
             elif again == 'no':
                 clearScreen()
-                confirmation = input('Are you sure you want to leave the Blackjack table?\nYou will lose all your progress (type "exit" to exit): ')
+                confirmation = input('Are you sure you want to leave the Blackjack table?\nYou will lose all your progress (type "exit" to exit): ').lower().replace(' ', '')
                 if confirmation == 'exit':
                     clearScreen()
                     exit('See you soon!' + '\n'*4)
@@ -141,6 +142,7 @@ def main():
     dealer = user('dealer', 2500)
     player = user('player', amount)
 
+    # prints out the info screen for the user, this will be their first time playing so it will be different this time
     printInfoScreen(dealer, player)
 
     # Starts the game
@@ -148,5 +150,6 @@ def main():
     dealer.firstRound = False
     blackjack(dealer, player)
 
+# Name guard
 if __name__ == '__main__':
     main()
