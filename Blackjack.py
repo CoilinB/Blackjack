@@ -72,6 +72,7 @@ def printInfoScreen(dealer, player):
     else:
         clearScreen()
         print(f'You have ${player.amount} in your account')
+        print(f'You {player.lastRound} your last round')
         setScreen()
         
         while True:
@@ -80,15 +81,19 @@ def printInfoScreen(dealer, player):
                 blackjack(dealer, player)
             elif again == 'no':
                 clearScreen()
-                confirmation = input('Are you sure you want to leave the Blackjack table?\nYou will lose all your progress (type "exit" to exit): ').lower().replace(' ', '')
+                confirmation = input('Are you sure you want to leave the Blackjack table?\nYou will lose all your progress (type "exit" to exit or "cancel" to go back): ').lower().replace(' ', '')
                 if confirmation == 'exit':
                     clearScreen()
                     exit('See you soon!' + '\n'*4)
                 else:
                     clearScreen()
+                    print(f'You have ${player.amount} in your account')
+                    print(f'You {player.lastRound} your last round')
+                    setScreen()
             else:
                 clearScreen()
                 print(f'You have ${player.amount} in your account')
+                print(f'You {player.lastRound} your last round')
                 setScreen()
 
 def shuffleDeck():
@@ -127,8 +132,8 @@ def blackjack(dealer, player):
     dealCards(dealer, player)
 
     # The next two lines will be removed later when we can actually decide who won and lost
-    dealer.lastRound = 'lose'
-    player.lastRound = 'win'
+    dealer.lastRound = 'lost'
+    player.lastRound = 'won'
     printInfoScreen(dealer, player)
 
 def main():
