@@ -24,6 +24,39 @@ class user:
                 print(f'The Dealers hand was: {', '.join(self.hand)}')
             else:
                 print(f'Your Hand is: {', '.join(self.hand)}')
+    
+    def calcHand(self):
+        # Sets the default value of hands value
+        handValue = 0
+
+        # Adds the values of each card
+        # This assumes the user wants to keep the ace card as a value of 11, after this calculation it can be adjusted
+        for card in self.hand:
+            match card:
+                case '2' | '3' |'4' | '5' | '6' | '7' | '8' | '9' | '10':
+                    handValue += int(card)
+                case 'J' | 'Q' | 'K':
+                    handValue += 10
+                case 'A':
+                    handValue += 11
+        
+        # Adjusts the value of aces to 1 if the hand value is greater than 21
+        # It will only do this until the hand value is equal to or less than 21
+        # If there are no more aces in the hand but the hand value is still over 21, the hand Value is set to bust and we stop trying to calculate the value
+        tempHand = self.hand.copy()
+        while handValue > 21:
+            try:
+                tempHand.pop('A')
+            except:
+                handValue = 'bust'
+                break
+            else:
+                handValue -= 10
+
+        # Returns the value of the hand
+        # This could be either an integer from 0-21 or a string "bust"
+        return handValue
+            
 
 def getMoney():
     '''
@@ -48,7 +81,7 @@ def getMoney():
     return amount
 
 def printInfoScreen(dealer, player):
-    # Depeding on the whether it's the players first round or not, it will ask the player to start the game or play again
+    # Depending on the whether it's the players first round or not, it will ask the player to start the game or play again
 
     # If it's the users first time playing, it will continue to ask them to start the game until they type play
     # This insures the player is ready, as it will go straight into the first game after this
@@ -116,11 +149,6 @@ def dealCards(dealer, player):
     dealer.hand.append(deck.pop(0))
     player.hand.append(deck.pop(0))
     dealer.hand.append(deck.pop(0))
-
-    # Prints the dealers first card and the users hand
-    dealer.printHand(True)
-    player.printHand()
-    setScreen()
 
 def blackjack(dealer, player):
     '''
