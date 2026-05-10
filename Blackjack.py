@@ -150,6 +150,16 @@ def dealCards(dealer, player):
     player.hand.append(deck.pop(0))
     dealer.hand.append(deck.pop(0))
 
+def printHands(dealer, player):
+    pass
+
+def choices(player):
+    pass
+
+def calcDealerHand(dealer):
+    pass
+
+
 def blackjack(dealer, player):
     '''
     Plays one round of the game
@@ -158,6 +168,13 @@ def blackjack(dealer, player):
     clearScreen()
     shuffleDeck()
     dealCards(dealer, player)
+    
+    choice = 'hit'
+    while player.calcHand != 'bust' and choice == 'hit':
+        choice = choices(player)
+
+    calcDealerHand(dealer)
+        
 
     # The next two lines will be removed later when we can actually decide who won and lost
     dealer.lastRound = 'lost'
