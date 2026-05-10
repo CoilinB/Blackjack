@@ -207,7 +207,7 @@ def blackjack(dealer, player):
     dealCards(dealer, player)
     
     choice = 'hit'
-    while player.calcHand != 'bust' and choice == 'hit':
+    while player.calcHand() != 'bust' and choice == 'hit':
         choice = choices(dealer, player)
 
     calcDealerHand(dealer)
