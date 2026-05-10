@@ -152,12 +152,24 @@ def dealCards(dealer, player):
 
 def printHands(dealer, player):
     # Prints the dealers first card and the users hand
+    clearScreen()
     dealer.printHand(True)
     player.printHand()
     setScreen()
 
-def choices(player):
-    pass
+def choices(dealer, player):
+    # Prints hands for the player to see and make decisions based on
+    printHands(dealer, player)
+
+    # Asks the player if the would like to hit or stay
+    choice = input('Would you like to hit or stay? (type "hit" or "stay")').lower().replace(' ', '')
+
+    # Based on their choice, we add a card from the top of the deck or do nothing
+    if choice == 'hit':
+        player.hand.append(deck.pop(0))
+    
+    # Returns the choice they made
+    return choice
 
 def calcDealerHand(dealer):
     pass
@@ -174,7 +186,7 @@ def blackjack(dealer, player):
     
     choice = 'hit'
     while player.calcHand != 'bust' and choice == 'hit':
-        choice = choices(player)
+        choice = choices(dealer, player)
 
     calcDealerHand(dealer)
         
