@@ -151,7 +151,10 @@ def dealCards(dealer, player):
     dealer.hand.append(deck.pop(0))
 
 def printHands(dealer, player):
-    pass
+    # Prints the dealers first card and the users hand
+    dealer.printHand(True)
+    player.printHand()
+    setScreen()
 
 def choices(player):
     pass
