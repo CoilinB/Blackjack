@@ -150,19 +150,41 @@ def dealCards(dealer, player):
     player.hand.append(deck.pop(0))
     dealer.hand.append(deck.pop(0))
 
-def printHands(dealer, player):
+def printHands(dealer, player, clear=True):
     # Prints the dealers first card and the users hand
-    clearScreen()
+    # If clearScreen is set to false it won't clear the screen at the beginning, by default it will
+    if clear == True:
+        clearScreen()
     dealer.printHand(True)
     player.printHand()
     setScreen()
 
 def choices(dealer, player):
-    # Prints hands for the player to see and make decisions based on
-    printHands(dealer, player)
+    '''
+    Asks the player if the would like to hit or stay
+    If they don't put in a valid response, it will keep asking until a valid response is entered
+    '''
 
-    # Asks the player if the would like to hit or stay
-    choice = input('Would you like to hit or stay? (type "hit" or "stay")').lower().replace(' ', '')
+    firstTry = True
+
+    # A loop that runs until the user inputs a valid choice
+    while True:
+        if firstTry == False:
+            clearScreen()
+            print('That was not a valid input')
+            printHands(dealer, player, False)
+            choice = input('Would you like to hit or stay? (type "hit" or "stay"): ').lower().replace(' ', '')
+        else:
+            printHands(dealer, player)
+            choice = input('Would you like to hit or stay? (type "hit" or "stay"): ').lower().replace(' ', '')
+
+        # Checks to make sure the input was valid
+        if choice == 'hit' or choice == 'stay':
+            break
+
+        # This is only run if the input is invalid
+        firstTry = False
+
 
     # Based on their choice, we add a card from the top of the deck or do nothing
     if choice == 'hit':
