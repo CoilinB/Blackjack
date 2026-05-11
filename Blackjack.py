@@ -53,7 +53,7 @@ class user:
                 handValue -= 10
 
         # Returns the value of the hand
-        # This could be either an integer from 0-21 or a string "bust"
+        # This could be either an integer from 0-21
         return handValue
             
 
@@ -183,20 +183,23 @@ def choices(dealer, player):
 
         # This is only run if the input is invalid
         firstTry = False
-
-
-    # Based on their choice, we add a card from the top of the deck or do nothing
-    if choice == 'hit':
-        player.hand.append(deck.pop(0))
     
     # Returns the choice they made
     return choice
+
+def playPlayerHand(dealer, player):
+    # Lets the player either hit or stay until they want to stop
+    choice = None
+    while choice != 'stay':
+        choice = choices(dealer, player)
+        # Based on their choice, we add a card from the top of the deck or do nothing
+        if choice == 'hit':
+            player.hand.append(deck.pop(0))
 
 def playDealerHand(dealer):
     # While the dealers hand is worth 16 or less, they must hit
     while dealer.calcHand() < 17:
         dealer.hand.append(deck.pop(0))
-
 
 def blackjack(dealer, player):
     '''
@@ -210,10 +213,7 @@ def blackjack(dealer, player):
     dealCards(dealer, player)
     
     # Plays the round
-    choice = 'hit'
-    while player.calcHand() != 'bust' and choice == 'hit':
-        choice = choices(dealer, player)
-
+    playPlayerHand(dealer, player)
     playDealerHand(dealer)
 
     # Calculates the round
