@@ -48,7 +48,6 @@ class user:
             try:
                 tempHand.pop('A')
             except:
-                handValue = 'bust'
                 break
             else:
                 handValue -= 10
@@ -195,7 +194,7 @@ def choices(dealer, player):
 
 def playDealerHand(dealer):
     # While the dealers hand is worth 16 or less, they must hit
-    while dealer.calcHand < 17:
+    while dealer.calcHand() < 17:
         dealer.hand.append(deck.pop(0))
 
 
@@ -204,16 +203,20 @@ def blackjack(dealer, player):
     Plays one round of the game
     This can be called multiple times if the user wants to play again
     '''
+
+    # Sets up the round
     clearScreen()
     shuffleDeck()
     dealCards(dealer, player)
     
+    # Plays the round
     choice = 'hit'
     while player.calcHand() != 'bust' and choice == 'hit':
         choice = choices(dealer, player)
 
     playDealerHand(dealer)
 
+    # Calculates the round
     playerHand = player.calcHand()
     dealerHand = dealer.calcHand()
 
