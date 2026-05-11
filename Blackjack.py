@@ -151,7 +151,7 @@ def dealCards(dealer, player):
 
 def printHands(dealer, player, clear=True):
     # Prints the dealers first card and the users hand
-    # If clearScreen is set to false it won't clear the screen at the beginning, by default it will
+    # If clear is set to false it won't clear the screen at the beginning, by default it will
     if clear == True:
         clearScreen()
     dealer.printHand(True)
@@ -220,7 +220,7 @@ def blackjack(dealer, player):
     playerHand = player.calcHand()
     dealerHand = dealer.calcHand()
 
-    # The next two lines will be removed later when we can actually decide who won and lost
+    # The next three lines will be removed later when we can actually decide who won and lost
     dealer.lastRound = 'lost'
     player.lastRound = 'won'
     printInfoScreen(dealer, player)
