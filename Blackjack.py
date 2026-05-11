@@ -42,7 +42,7 @@ class user:
         
         # Adjusts the value of aces to 1 if the hand value is greater than 21
         # It will only do this until the hand value is equal to or less than 21
-        # If there are no more aces in the hand but the hand value is still over 21, the hand Value is set to bust and we stop trying to calculate the value
+        # If there are no more aces in the hand but the hand value is still over 21, the hand value is set to bust and we stop trying to calculate the value
         tempHand = self.hand.copy()
         while handValue > 21:
             try:
@@ -193,8 +193,10 @@ def choices(dealer, player):
     # Returns the choice they made
     return choice
 
-def calcDealerHand(dealer):
-    pass
+def playDealerHand(dealer):
+    # While the dealers hand is worth 16 or less, they must hit
+    while dealer.calcHand < 17:
+        dealer.hand.append(deck.pop(0))
 
 
 def blackjack(dealer, player):
@@ -210,8 +212,10 @@ def blackjack(dealer, player):
     while player.calcHand() != 'bust' and choice == 'hit':
         choice = choices(dealer, player)
 
-    calcDealerHand(dealer)
-        
+    playDealerHand(dealer)
+
+    playerHand = player.calcHand()
+    dealerHand = dealer.calcHand()
 
     # The next two lines will be removed later when we can actually decide who won and lost
     dealer.lastRound = 'lost'
