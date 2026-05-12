@@ -46,7 +46,7 @@ class user:
         tempHand = self.hand.copy()
         while handValue > 21:
             try:
-                tempHand.pop('A')
+                tempHand.remove('A')
             except:
                 break
             else:
@@ -219,6 +219,10 @@ def blackjack(dealer, player):
     # Calculates the round
     playerHand = player.calcHand()
     dealerHand = dealer.calcHand()
+
+    # Temporary. For debugging
+    print(dealer.hand)
+    print(player.hand)
 
     # The next three lines will be removed later when we can actually decide who won and lost
     dealer.lastRound = 'lost'
